@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { TodoComponent } from "./components/todo/todo.component";
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [TodoComponent],
+  standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
