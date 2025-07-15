@@ -1,11 +1,15 @@
-<h2>📝 Lista Zadań</h2>
+<div class="container">
 
-<input [(ngModel)]="newTask" placeholder="Nowe zadanie" />
-<button (click)="add()">➕ Dodaj</button>
 
-<ul>
-  <li *ngFor="let todo of todos$ | async">
-    {{ todo.title }}
-    <button (click)="remove(todo.id)">❌</button>
-  </li>
-</ul>
+    <h2>📝 Lista Zadań</h2>
+
+    <input [(ngModel)]="newTask" placeholder="Nowe zadanie" />
+    <button (click)="add()">➕ Dodaj</button>
+
+    <ul>
+        <li *ngFor="let todo of todos$ | async">
+            {{ todo.title }}
+            <button (click)="remove(todo.id)">❌</button>
+        </li>
+    </ul>
+</div>
