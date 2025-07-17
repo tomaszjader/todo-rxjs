@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 export class TodoComponent {
   todos$: Observable<Todo[]>;
   newTask = '';
+  editingId: number | null = null;
+  editingText = '';
 
   constructor(private todoService: TodoService) {
     this.todos$ = this.todoService.todos$;
@@ -29,5 +31,22 @@ export class TodoComponent {
 
   remove(id: number) {
     this.todoService.removeTodo(id);
+  }
+
+  startEdit(todo: Todo) {
+    this.editingId = todo.id;
+    this.editingText = todo.title;
+  }
+
+  saveEdit() {
+    if (this.editingId !== null && this.editingText.trim()) {
+      this.todoService.updateTodo(this.editingId, this.editingText);
+      this.cancelEdit();
+    }
+  }
+
+  cancelEdit() {
+    this.editingId = null;
+    this.editingText = '';
   }
 }

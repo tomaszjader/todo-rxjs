@@ -1,15 +1,28 @@
 <div class="container">
-
-
     <h2>📝 Lista Zadań</h2>
 
-    <input [(ngModel)]="newTask" placeholder="Nowe zadanie" />
-    <button (click)="add()">➕ Dodaj</button>
+    <div class="add-todo">
+        <input [(ngModel)]="newTask" placeholder="Nowe zadanie" />
+        <button (click)="add()">➕ Dodaj</button>
+    </div>
 
-    <ul>
-        <li *ngFor="let todo of todos$ | async">
-            {{ todo.title }}
-            <button (click)="remove(todo.id)">❌</button>
+    <ul class="todo-list">
+        <li *ngFor="let todo of todos$ | async" class="todo-item">
+            <div *ngIf="editingId !== todo.id" class="todo-display">
+                <span class="todo-text">{{ todo.title }}</span>
+                <div class="todo-actions">
+                    <button (click)="startEdit(todo)" class="edit-btn">✏️ Edytuj</button>
+                    <button (click)="remove(todo.id)" class="delete-btn">❌ Usuń</button>
+                </div>
+            </div>
+            
+            <div *ngIf="editingId === todo.id" class="todo-edit">
+                <input [(ngModel)]="editingText" class="edit-input" />
+                <div class="edit-actions">
+                    <button (click)="saveEdit()" class="save-btn">💾 Zapisz</button>
+                    <button (click)="cancelEdit()" class="cancel-btn">❌ Anuluj</button>
+                </div>
+            </div>
         </li>
     </ul>
 </div>

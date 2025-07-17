@@ -27,4 +27,12 @@ export class TodoService {
     const updated = this.todosSubject.value.filter(todo => todo.id !== id);
     this.todosSubject.next(updated);
   }
+
+  updateTodo(id: number, title: string) {
+    const current = this.todosSubject.value;
+    const updated = current.map(todo => 
+      todo.id === id ? { ...todo, title } : todo
+    );
+    this.todosSubject.next(updated);
+  }
 }
