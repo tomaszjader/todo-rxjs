@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodoService, Todo } from '../../services/todo.service';
+import { ThemeService } from '../../services/theme.service';
 
 import { Observable } from 'rxjs';
 
@@ -14,12 +15,17 @@ import { Observable } from 'rxjs';
 })
 export class TodoComponent {
   todos$: Observable<Todo[]>;
+  isDarkMode$: Observable<boolean>;
   newTask = '';
   editingId: number | null = null;
   editingText = '';
 
-  constructor(private todoService: TodoService) {
+  constructor(
+    private todoService: TodoService,
+    private themeService: ThemeService
+  ) {
     this.todos$ = this.todoService.todos$;
+    this.isDarkMode$ = this.themeService.isDarkMode$;
   }
 
   add() {
@@ -48,5 +54,9 @@ export class TodoComponent {
   cancelEdit() {
     this.editingId = null;
     this.editingText = '';
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 }

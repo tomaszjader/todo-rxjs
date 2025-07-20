@@ -1,4 +1,9 @@
 <div class="container">
+    <!-- Przełącznik motywu -->
+    <button class="theme-toggle" (click)="toggleTheme()" [title]="(isDarkMode$ | async) ? 'Przełącz na tryb jasny' : 'Przełącz na tryb ciemny'">
+        {{ (isDarkMode$ | async) ? '☀️' : '🌙' }}
+    </button>
+
     <h2>📝 Lista Zadań</h2>
 
     <div class="add-todo">
