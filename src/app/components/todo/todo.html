@@ -1,14 +1,27 @@
 <div class="container">
-    <!-- Przełącznik motywu -->
-    <button class="theme-toggle" (click)="toggleTheme()" [title]="(isDarkMode$ | async) ? 'Przełącz na tryb jasny' : 'Przełącz na tryb ciemny'">
-        {{ (isDarkMode$ | async) ? '☀️' : '🌙' }}
-    </button>
+    <!-- Przełącznik motywu i języka -->
+    <div class="header-controls">
+        <div class="language-switcher">
+            <button 
+                *ngFor="let lang of availableLanguages" 
+                (click)="changeLanguage(lang.code)"
+                [class.active]="(currentLanguage$ | async) === lang.code"
+                class="language-btn"
+                [title]="'language.switch' | translate | async">
+                {{ lang.flag }} {{ lang.name }}
+            </button>
+        </div>
+        
+        <button class="theme-toggle" (click)="toggleTheme()" [title]="(isDarkMode$ | async) ? ('theme.light' | translate | async) : ('theme.dark' | translate | async)">
+            {{ (isDarkMode$ | async) ? '☀️' : '🌙' }}
+        </button>
+    </div>
 
-    <h2>📝 Lista Zadań</h2>
+    <h2>📝 {{ 'app.title' | translate | async }}</h2>
 
     <div class="add-todo">
-        <input [(ngModel)]="newTask" placeholder="Nowe zadanie" />
-        <button (click)="add()">➕ Dodaj</button>
+        <input [(ngModel)]="newTask" [placeholder]="'todo.new.placeholder' | translate | async" />
+        <button (click)="add()">➕ {{ 'todo.add' | translate | async }}</button>
     </div>
 
     <ul class="todo-list">
@@ -16,16 +29,16 @@
             <div *ngIf="editingId !== todo.id" class="todo-display">
                 <span class="todo-text">{{ todo.title }}</span>
                 <div class="todo-actions">
-                    <button (click)="startEdit(todo)" class="edit-btn">✏️ Edytuj</button>
-                    <button (click)="remove(todo.id)" class="delete-btn">❌ Usuń</button>
+                    <button (click)="startEdit(todo)" class="edit-btn">✏️ {{ 'todo.edit' | translate | async }}</button>
+                    <button (click)="remove(todo.id)" class="delete-btn">❌ {{ 'todo.delete' | translate | async }}</button>
                 </div>
             </div>
             
             <div *ngIf="editingId === todo.id" class="todo-edit">
                 <input [(ngModel)]="editingText" class="edit-input" />
                 <div class="edit-actions">
-                    <button (click)="saveEdit()" class="save-btn">💾 Zapisz</button>
-                    <button (click)="cancelEdit()" class="cancel-btn">❌ Anuluj</button>
+                    <button (click)="saveEdit()" class="save-btn">💾 {{ 'todo.save' | translate | async }}</button>
+                    <button (click)="cancelEdit()" class="cancel-btn">❌ {{ 'todo.cancel' | translate | async }}</button>
                 </div>
             </div>
         </li>
