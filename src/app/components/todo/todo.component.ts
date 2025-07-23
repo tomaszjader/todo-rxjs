@@ -12,8 +12,8 @@ import { Observable } from 'rxjs';
   selector: 'app-todo',
   standalone: true,
   imports: [NgIf, NgFor, FormsModule, AsyncPipe, TranslatePipe],
-  templateUrl: './todo.html',
-  styleUrl: './todo.css'
+  templateUrl: './todo.component.html',
+  styleUrl: './todo.component.css'
 })
 export class TodoComponent {
   todos$: Observable<Todo[]>;
